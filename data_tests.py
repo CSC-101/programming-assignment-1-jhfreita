@@ -1,243 +1,95 @@
 import data
+
 import unittest
 
+import hw1
+# Write your test cases for each part below.
 
 class TestCases(unittest.TestCase):
-    def test_Price_1(self):
-        price = data.Price(1, 20)
-        self.assertEqual(price.dollars, 1)
-        self.assertEqual(price.cents, 20)
+    # Part 1
+    def test_vowel_count(self):
+        word1 = "Call me Ishmal"
+        word2 = "ABCDEFGHIJKLMNopqrstuvwxyz"
+        self.assertAlmostEqual(hw1.vowel_count(word1), 4)
+        self.assertAlmostEqual(hw1.vowel_count(word2), 5)
+
+    # Part 2
+    def test_short_lists(self):
+        list1 = [[4, 2], [4, 2, 4, 2], [5, 7], [7, 0, 3]]
+        list2 = [[3,8,5],[4,24], [5,75], [72,0,34]]
+        self.assertEqual(hw1.short_lists(list1), [[4,2], [5,7]])
+        self.assertEqual(hw1.short_lists(list2), [[4,24], [5,75]])
+
+    # Part 3
+    def test_ascending_pairs(self):
+        list1 = [[41, 2], [45, 2, 42, 2], [51, 30], [70, 71], [1, 2, 3, 4]]
+        list2 = [[27,25],[2,42],[51,30],[70,71],[11,24,31,44]]
+        self.assertEqual(hw1.ascending_pairs(list1), [[2,41], [45, 2, 42, 2], [30,51], [70,71], [1, 2, 3, 4]])
+        self.assertEqual(hw1.ascending_pairs(list2), [[25, 27], [2, 42], [30, 51], [70, 71], [11, 24, 31, 44]])
+
+    # Part 4
+    def test_add_prices(self):
+        price1 = data.Price(120, 22)
+        price2 = data.Price(200, 88)
+        price3 = data.Price(181, 99)
+        price4 = data.Price(242, 1)
+        self.assertEqual(hw1.add_prices(price1, price2), data.Price(321, 10))
+        self.assertEqual(hw1.add_prices(price3, price4), data.Price(424, 0))
+
+    # Part 5
+    def test_rectangle_area(self):
+        Point1 = data.Point(4, 2)
+        Point2 = data.Point(0, 4)
+        Point3 = data.Point(3, -2)
+        Point4 = data.Point(-5, 8)
+        Rectangle1 = data.Rectangle(Point1, Point2)
+        Rectangle2 = data.Rectangle(Point3, Point4)
+        self.assertEqual(hw1.rectangle_area(Rectangle1), 8)
+        self.assertEqual(hw1.rectangle_area(Rectangle2), 80)
+
+    # Part 6
+    def test_books_by_author(self):
+        author = "Steven King"
+        Book1 = data.Book("Steven King", "The Shining")
+        Book2 = data.Book("Steven King", "Salem's Lot")
+        Book3 = data.Book("Leo Tolstoy", "War and Peace")
+        Book4 = data.Book("Charles Dickens", "David Copperfield")
+        Book5 = data.Book("Steven King", "It")
+        Book6 = data.Book("Mary Shelley", "Frankenstein")
+        Book7 = data.Book("Charles Dickens", "A Christmas Carol")
+        Book8 = data.Book("Steven King", "11/22/63")
+        self.assertEqual(hw1.books_by_author("Steven King", [Book1, Book2, Book3, Book4, Book5, Book6, Book7, Book8]), ["The Shining", "Salem's Lot", "It", "11/22/63"])
+        self.assertEqual(hw1.books_by_author("Charles Dickens", [Book1, Book2, Book3, Book4, Book5, Book6, Book7, Book8]), ["David Copperfield", "A Christmas Carol"])
+
+    # Part 7
+    def test_circle_bound(self):
+        Point1 = data.Point(4, 2)
+        Point2 = data.Point(0, 4)
+        Point3 = data.Point(3, -2)
+        Point4 = data.Point(-5, 8)
+        Rectangle1 = data.Rectangle(Point1, Point2)
+        Rectangle2 = data.Rectangle(Point3, Point4)
+        self.assertAlmostEqual(hw1.circle_bound(Rectangle1).center.x, 2)
+        self.assertAlmostEqual(hw1.circle_bound(Rectangle1).center.y, 3)
+        self.assertAlmostEqual(hw1.circle_bound(Rectangle1).radius, 2.236067977)
+        self.assertAlmostEqual(hw1.circle_bound(Rectangle2).center.x, -1)
+        self.assertAlmostEqual(hw1.circle_bound(Rectangle2).center.y, 3)
+        self.assertAlmostEqual(hw1.circle_bound(Rectangle2).radius, 6.403124237)
+
+    # Part 8
+def test_pay_below_average(self):
+    employee1 = data.Employee("Bob", 100)
+    employee2 = data.Employee("Ryan", 200)
+    employee3 = data.Employee("Jack", 500)
+    employee4 = data.Employee("Mike", 250)
+    employee5 = data.Employee("Nathan", 150)
+    employee6 = data.Employee("Oliver", 400)
+    employee_list1 = [employee1, employee2, employee4, employee5]
+    employee_list2 = [employee1, employee2, employee3, employee4, employee5, employee6]
+    self.assertEqual(hw1.pay_below_average(employee_list1), ["Bob", "Nathan"])
+    self.assertEqual(hw1.pay_below_average(employee_list2), ["Bob", "Ryan", "Mike", "Nathan"])
 
 
-    def test_Price_2(self):
-        price = data.Price(4, 19)
-        self.assertEqual(price.dollars, 4)
-        self.assertEqual(price.cents, 19)
-
-
-    def test_Price_eq_1(self):
-        price1 = data.Price(1, 20)
-        price2 = data.Price(1, 20)
-        self.assertEqual(price1, price2)
-
-
-    def test_Price_eq_2(self):
-        price1 = data.Price(1, 20)
-        self.assertEqual(price1, price1)
-
-
-    def test_Price_eq_3(self):
-        price1 = data.Price(1, 20)
-        price2 = data.Price(2, 20)
-        self.assertNotEqual(price1, price2)
-
-
-    def test_Price_eq_4(self):
-        price = data.Price(1, 20)
-        other = 1.20
-        self.assertNotEqual(price, other)
-
-
-    def test_Price_repr(self):
-        price = data.Price(5, 75)
-        self.assertEqual(repr(price), 'Price(5, 75)')
-
-
-    def test_Point_1(self):
-        point = data.Point(7, 20)
-        self.assertAlmostEqual(point.x, 7)
-        self.assertAlmostEqual(point.y, 20)
-
-
-    def test_Point_2(self):
-        point = data.Point(4, 19)
-        self.assertAlmostEqual(point.x, 4)
-        self.assertAlmostEqual(point.y, 19)
-
-
-    def test_Point_eq_1(self):
-        point1 = data.Point(1, 20)
-        point2 = data.Point(1, 20)
-        self.assertEqual(point1, point2)
-
-
-    def test_Point_eq_2(self):
-        point1 = data.Point(1, 20)
-        self.assertEqual(point1, point1)
-
-
-    def test_Point_eq_3(self):
-        point1 = data.Point(1, 20)
-        point2 = data.Point(2, 20)
-        self.assertNotEqual(point1, point2)
-
-
-    def test_Point_eq_4(self):
-        point = data.Point(1, 20)
-        other = 1.20
-        self.assertNotEqual(point, other)
-
-
-    def test_Point_repr(self):
-        point = data.Point(5, 75)
-        self.assertEqual(repr(point), 'Point(5, 75)')
-
-
-    def test_Rectangle_1(self):
-        rectangle = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        self.assertEqual(rectangle.top_left, data.Point(7, 20))
-        self.assertEqual(rectangle.bottom_right, data.Point(12, 10))
-
-
-    def test_Rectangle_eq_1(self):
-        rectangle1 = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        rectangle2 = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        self.assertEqual(rectangle1, rectangle2)
-
-
-    def test_Rectangle_eq_2(self):
-        rectangle = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        self.assertEqual(rectangle, rectangle)
-
-
-    def test_Rectangle_eq_3(self):
-        rectangle1 = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        rectangle2 = data.Rectangle(data.Point(4, 17), data.Point(12, 10))
-        self.assertNotEqual(rectangle1, rectangle2)
-
-
-    def test_Rectangle_eq_4(self):
-        rectangle = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        other = 1.20
-        self.assertNotEqual(rectangle, other)
-
-
-    def test_Rectangle_repr(self):
-        rectangle = data.Rectangle(data.Point(7, 20), data.Point(12, 10))
-        self.assertEqual(repr(rectangle),
-            'Rectangle(Point(7, 20), Point(12, 10))')
-
-
-    def test_Circle_1(self):
-        circle = data.Circle(data.Point(7, 20), 6.2)
-        self.assertEqual(circle.center, data.Point(7, 20))
-        self.assertEqual(circle.radius, 6.2)
-
-
-    def test_Circle_eq_1(self):
-        circle1 = data.Circle(data.Point(7, 20), 6.2)
-        circle2 = data.Circle(data.Point(7, 20), 6.2)
-        self.assertEqual(circle1, circle2)
-
-
-    def test_Circle_eq_2(self):
-        circle = data.Circle(data.Point(7, 19), 4.7)
-        self.assertEqual(circle, circle)
-
-
-    def test_Circle_eq_3(self):
-        circle1 = data.Circle(data.Point(7, 20), 4.7)
-        circle2 = data.Circle(data.Point(4, 17), 4.7)
-        self.assertNotEqual(circle1, circle2)
-
-
-    def test_Circle_eq_4(self):
-        circle1 = data.Circle(data.Point(7, 20), 4.7)
-        circle2 = data.Circle(data.Point(7, 20), 4.6)
-        self.assertNotEqual(circle1, circle2)
-
-
-    def test_Circle_eq_5(self):
-        circle = data.Circle(data.Point(7, 20), 4.7)
-        other = 1.20
-        self.assertNotEqual(circle, other)
-
-
-    def test_Circle_repr(self):
-        circle = data.Circle(data.Point(7, 20), 2)
-        self.assertEqual(repr(circle), 'Circle(Point(7, 20), 2)')
-
-
-    def test_Book_1(self):
-        book = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        self.assertEqual(book.authors, ['Neil Gaiman', 'Terry Pratchett'])
-        self.assertEqual(book.title, 'Good Omens')
-
-
-    def test_Book_eq_1(self):
-        book1 = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        book2 = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        self.assertEqual(book1, book2)
-
-
-    def test_Book_eq_2(self):
-        book = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        self.assertEqual(book, book)
-
-
-    def test_Book_eq_3(self):
-        book1 = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        book2 = data.Book(['Terry Pratchett', 'Neil Gaiman'], 'Good Omens')
-        self.assertNotEqual(book1, book2)
-
-
-    def test_Book_eq_4(self):
-        book1 = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        book2 = data.Book(['Neil Gaiman', 'Terry Pratchett'],
-            'Illustrated Good Omens')
-        self.assertNotEqual(book1, book2)
-
-
-    def test_Book_eq_5(self):
-        book = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        other = 1.20
-        self.assertNotEqual(book, other)
-
-
-    def test_Book_repr(self):
-        book = data.Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')
-        self.assertEqual(repr(book),
-            "Book(['Neil Gaiman', 'Terry Pratchett'], 'Good Omens')")
-
-
-    def test_Employee_1(self):
-        employee = data.Employee('Neil', 5)
-        self.assertEqual(employee.name, 'Neil')
-        self.assertEqual(employee.pay_rate, 5)
-
-
-    def test_Employee_eq_1(self):
-        employee1 = data.Employee('Neil', 5)
-        employee2 = data.Employee('Neil', 5)
-        self.assertEqual(employee1, employee2)
-
-
-    def test_Employee_eq_2(self):
-        employee = data.Employee('Neil', 5)
-        self.assertEqual(employee, employee)
-
-
-    def test_Employee_eq_3(self):
-        employee1 = data.Employee('Neil', 5)
-        employee2 = data.Employee('Terry', 5)
-        self.assertNotEqual(employee1, employee2)
-
-
-    def test_Employee_eq_4(self):
-        employee1 = data.Employee('Neil', 5)
-        employee2 = data.Employee('Neil', 7)
-        self.assertNotEqual(employee1, employee2)
-
-
-    def test_Employee_eq_5(self):
-        employee = data.Employee('Neil', 5)
-        other = 1.20
-        self.assertNotEqual(employee, other)
-
-
-    def test_Employee_repr(self):
-        employee = data.Employee('Neil', 5)
-        self.assertEqual(repr(employee), "Employee('Neil', 5)")
 
 
 if __name__ == '__main__':
